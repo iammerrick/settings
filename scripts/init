@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+function shell {
+  chsh -s /bin/zsh
+}
+
+function symlink_dotfiles {
+  for file in $1; do
+    ln -s $2/$file ~/$file
+  done
+}
+
+function homebrew_packages {
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  for package in $1; do
+    brew install $package
+  done
+}
+
+function vim_plugins {
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  vim +PluginInstall +qall
+}
+
+shell
+homebrew_packages "git n vim the_silver_searcher zsh httpie git-extras"
+symlink_dotfiles ".zshrc .vimrc .gitignore .gitconfig" ~/Developer/Tooling/settings/dotfiles 
+vim_plugins
