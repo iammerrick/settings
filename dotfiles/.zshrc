@@ -25,7 +25,10 @@ fi
 bindkey -v
 
 # alias
-alias work="cd ~/Developer/Domo/DomoWeb/DomoWeb/mobile-web"
-export EDITOR="mvim"
+export EDITOR="vim"
 export DOMOVMDIR="$HOME/Developer/Domo/domovm"
-export PATH="/Users/Merrick/.stack/programs/x86_64-osx/ghc-7.10.3/bin:/Users/Merrick/.local/bin/:/Users/Merrick/.bin:/Users/Merrick/.bin/play-1.2.7.2:.:/usr/local/sbin:/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH:$DOMOVMDIR/bin" # Add RVM to PATH for scripting
+export PATH="/Users/Merrick/.stack/programs/x86_64-osx/ghc-7.10.3/bin:/Users/Merrick/.local/bin/:/Users/Merrick/.bin:/Users/Merrick/.bin/play-1.2.7.2:.:/usr/local/sbin:/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH:$DOMOVMDIR/bin:$HOME/.yarn/bin" # Add RVM to PATH for scripting
+
+# OPAM configuration
+. /Users/Merrick/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+eval $(opam config env)

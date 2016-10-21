@@ -3,6 +3,7 @@ set -euo pipefail
 
 function shell {
   chsh -s /bin/zsh
+  git clone https://github.com/tarjoilija/zgen.git ~/.zgen
 }
 
 function symlink_dotfiles {

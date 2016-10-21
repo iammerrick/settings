@@ -2,48 +2,38 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-filetype off
+call plug#begin('~/.vim/plugged')
+Plug 'VundleVim/Vundle.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+Plug 'tpope/vim-vinegar'
+Plug 'SirVer/ultisnips'
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mxw/vim-jsx'
+Plug 'mileszs/ack.vim'
+Plug 'wakatime/vim-wakatime'
+Plug 'scrooloose/syntastic'
+Plug 'trevordmiller/nova-vim'
+Plug 'ElmCast/elm-vim'
+Plug 'digitaltoad/vim-pug'
+Plug 'vim-airline/vim-airline'
+call plug#end()
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'chriskempson/base16-vim'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-vinegar'
-Plugin 'SirVer/ultisnips'
-Plugin 'mattn/emmet-vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'mxw/vim-jsx'
-Plugin 'mileszs/ack.vim'
-Plugin 'wakatime/vim-wakatime'
-Plugin 'scrooloose/syntastic'
-Plugin 'trevordmiller/nova-vim'
-Plugin 'digitaltoad/vim-pug'
-Plugin 'vim-airline/vim-airline'
-
-call vundle#end()
-
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-" Revert with ":filetype off".
-filetype plugin indent on
 
 
 " Configuration
-
-syntax on
 set background=dark
 colorscheme nova 
 set number
 
 
+set nobackup
+set noswapfile
 set clipboard=unnamed
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
@@ -80,9 +70,9 @@ let g:UltiSnipsEditSplit='vertical'
 let g:jsx_ext_required = 0
 let g:ctrlp_working_path_mode = 'a'
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:UltiSnipsExpandTrigger='<c-j>'
+
+let NERDTreeShowHidden=1
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -92,6 +82,9 @@ endif
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+
+autocmd Filetype elm setlocal ts=4 sw=4 expandtab
+
 set expandtab
 
 " Allow backspacing over everything in insert mode.
@@ -109,3 +102,18 @@ map <leader>d :NERDTreeFind<CR>
 map <F2> :UltiSnipsEdit<CR>
 map Q gq
 
+"Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+
+let g:elm_syntastic_show_warnings = 1
+
+" Elm
+let g:elm_format_fail_silently = 1
+let g:elm_format_autosave = 1
+let g:elm_detailed_complete = 1
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
