@@ -1,119 +1,123 @@
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
+﻿set nocompatible
 
 call plug#begin('~/.vim/plugged')
-Plug 'VundleVim/Vundle.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
-Plug 'tpope/vim-vinegar'
-Plug 'SirVer/ultisnips'
-Plug 'mattn/emmet-vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'mxw/vim-jsx'
-Plug 'mileszs/ack.vim'
-Plug 'wakatime/vim-wakatime'
-Plug 'scrooloose/syntastic'
-Plug 'trevordmiller/nova-vim'
-Plug 'ElmCast/elm-vim'
-Plug 'digitaltoad/vim-pug'
 Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'javascript'] }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+Plug 'SirVer/ultisnips'
+Plug 'mattn/emmet-vim', { 'for': 'html' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'mileszs/ack.vim'
+Plug 'w0rp/ale'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-vinegar'
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+Plug 'mhartington/oceanic-next'
 call plug#end()
 
 
-
 " Configuration
-set background=dark
-colorscheme nova 
+
+if (has("termguicolors"))
+set termguicolors
+endif
+
+colorscheme OceanicNext
+
 set number
+set guifont=Fira\ Code:h14
+set guioptions-=r
+set guioptions-=L
+set completeopt-=preview
 
-
-set nobackup
-set noswapfile
+set undofile
 set clipboard=unnamed
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
+
+
 set smarttab
 set laststatus=2
-set cursorline
 set showcmd " display incomplete commands
 set autoindent
 set foldmethod=manual
 set showmatch
-" In many terminal emulators the mouse works just fine.  By enabling it you
-" can position the cursor, Visually select and scroll with the mouse.
+set hlsearch
 set mouse=a
+
 set ruler " show the cursor position all the time
 set wildmenu " display completion matches in a status line
 set incsearch " Do incremental searching 
 set autoread
-set undofile
 set termguicolors
 set display=truncate " show @@@ in the last line if it is truncated
 
 set history=200 " keep 200 lines of command line history
 
+let g:airline_theme='oceanicnext'
+let g:airline_extensions = ['tabline']
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
-let NERDTreeMinimalUI=1
 
-let g:UltiSnipsExpandTrigger='<TAB>'
 let g:UltiSnipsEditSplit='vertical'
-
-let g:jsx_ext_required = 0
-let g:ctrlp_working_path_mode = 'a'
-let g:ycm_autoclose_preview_window_after_completion = 1
 let g:UltiSnipsExpandTrigger='<c-j>'
 
-let NERDTreeShowHidden=1
+let g:jsx_ext_required = 0
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
+let NERDTreeShowHidden=1
+let NERDTreeRespectWildIgnore=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeMinimalUI=1
 
 " Whitespace
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-
-autocmd Filetype elm setlocal ts=4 sw=4 expandtab
-
 set expandtab
 
 " Allow backspacing over everything in insert mode.
 set backspace=indent,eol,start
-
 set shiftround
-set wildignore+=node_modules,compiled
+
+let g:javascript_plugin_flow = 1
+
+" Ignore
+set wildignore+=*DS_Store*
 
 " Maps
 let mapleader=' '
+map <C-p> :FZF<CR>
 map <leader><leader> :w<CR>
 map <leader>w <c-w>
 map <leader>t :tabnew<CR>
-map <leader>d :NERDTreeFind<CR>
 map <F2> :UltiSnipsEdit<CR>
-map Q gq
+map <leader>d :NERDTreeFind<CR>
 
-"Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
+" Lint
+let g:ale_linters = {
+\  'javascript': ['eslint'],
+\}
 
-let g:elm_syntastic_show_warnings = 1
+let g:ale_fixers = {
+\  'javascript': ['eslint'],
+\}
+let g:ale_set_highlights = 0
+let g:ale_sign_column_always = 1
+let g:ale_fix_on_save = 1
 
-" Elm
-let g:elm_format_fail_silently = 1
-let g:elm_format_autosave = 1
-let g:elm_detailed_complete = 1
-let g:ycm_semantic_triggers = {
-     \ 'elm' : ['.'],
-     \}
+nmap <leader>= <Plug>(ale_fix)
+
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+endif
