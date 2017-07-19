@@ -1,6 +1,6 @@
 [user]
 	name = iammerrick
-	email = merrick.christensen@gmail.com
+	email = merrick-christensen@pluralsight.com
 [core]
 	editor = vim
   excludesfile = ~/.gitignore

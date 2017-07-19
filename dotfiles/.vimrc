@@ -17,7 +17,6 @@ Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-vinegar'
-Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
 Plug 'mhartington/oceanic-next'
 call plug#end()
 

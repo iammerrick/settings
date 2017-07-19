@@ -25,6 +25,8 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Editor
 export EDITOR="vim"
+
+export N_PREFIX="$HOME/.n"
 # vi mode
 bindkey -v
 
@@ -33,7 +35,7 @@ export FZF_DEFAULT_OPTS='--color=16'
 export FZF_DEFAULT_COMMAND="rg --files-with-matches --no-messages -F ''"
 export FZF_CTRL_T_COMMAND="rg --files-with-matches --no-messages --hidden -F '' | grep -v .git/"
 
-export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.bin:$PATH:$HOME/.n/bin"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin:$HOME/go/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
