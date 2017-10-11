@@ -1,6 +1,6 @@
 [user]
 	name = iammerrick
-	email = merrick-christensen@pluralsight.com
+	email = merrick.christensen@gmail.com
 [core]
 	editor = vim
   excludesfile = ~/.gitignore
@@ -17,6 +17,8 @@
 	prompt = false
 [push]
   default = simple
+[pull]
+  rebase = true
 [diff]
 	tool = Kaleidoscope
 [color]

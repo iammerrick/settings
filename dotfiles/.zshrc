@@ -24,11 +24,14 @@ fi
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Editor
-export EDITOR="vim"
+export EDITOR="atom-beta"
+alias edit="$EDITOR"
 
-export N_PREFIX="$HOME/.n"
 # vi mode
 bindkey -v
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # FZF
 export FZF_DEFAULT_OPTS='--color=16'
@@ -37,5 +40,5 @@ export FZF_CTRL_T_COMMAND="rg --files-with-matches --no-messages --hidden -F '' 
 
 export PATH="$HOME/.bin:$PATH:$HOME/.n/bin"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin:$HOME/go/bin
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH=$PATH:$HOME/.cargo/bin
+source $HOME/.cargo/env
